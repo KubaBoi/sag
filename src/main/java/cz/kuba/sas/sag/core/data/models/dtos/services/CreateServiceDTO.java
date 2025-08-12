@@ -2,6 +2,7 @@ package cz.kuba.sas.sag.core.data.models.dtos.services;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.kuba.sas.sag.core.data.enums.DriverType;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,19 +19,19 @@ import java.net.URL;
 @NoArgsConstructor
 public class CreateServiceDTO {
 
-    @NotNull
+    @NotBlank
     @JsonProperty
     private String prefix;
 
-    @NotNull
+    @NotBlank
     @JsonProperty
     private String name;
 
-    @NotNull
+    @NotBlank
     @JsonProperty
     private DriverType driverType;
 
-    @NotNull
+    @NotBlank
     @JsonProperty
     private String version;
 
