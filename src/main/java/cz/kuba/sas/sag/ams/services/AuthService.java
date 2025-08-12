@@ -39,7 +39,7 @@ public class AuthService {
             log.error("Account not found");
             throw new AccountNotFoundException("Account not found");
         }
-        if (!passwordEncoder.matches(credentials.password(), account.getPasswordHash())) {
+        if (!passwordEncoder.matches(credentials.password(), account.passwordHash())) {
             log.error("Wrong password");
             throw new AccountNotFoundException("Wrong password");
         }

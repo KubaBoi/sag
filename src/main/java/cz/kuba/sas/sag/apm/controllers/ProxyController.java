@@ -43,7 +43,7 @@ public class ProxyController {
                 request.getRequestURI());
 
         var service = selectorService.findService(servicePrefix);
-        var driver = selectorService.findProxyDriver(service.getDriverType());
+        var driver = selectorService.findProxyDriver(service.driverType());
 
         return driver.forward(service, request);
     }

@@ -57,12 +57,12 @@ public class HttpProxyDriver implements ProxyDriverInterface {
                 .body(responseEntity.getBody());
     }
 
-    private String createUrl(SasService service, String path, String query) throws UnsupportedEncodingException {
-        path = path.replace(service.getPrefix(), "");
+    private String createUrl(SasService service, String path, String query) {
+        path = path.replace(service.prefix(), "");
 
         StringBuilder builder = new StringBuilder();
         builder.append("http://localhost:")
-                .append(service.getPort())
+                .append(service.port())
                 .append(URLDecoder.decode(path, StandardCharsets.UTF_8));
 
         if (query != null) {

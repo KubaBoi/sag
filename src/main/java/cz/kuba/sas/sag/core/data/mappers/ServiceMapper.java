@@ -7,21 +7,21 @@ public class ServiceMapper {
 
     static SasService toEntity(ServiceDTO service) {
         return new SasService()
-                .setId(service.id())
-                .setPrefix(service.prefix())
-                .setName(service.name())
-                .setDescription(service.description())
-                .setPort(service.port())
-                .setDriverType(service.driverType());
+                .id(service.id())
+                .prefix(service.prefix())
+                .name(service.name())
+                .description(service.description())
+                .port(service.port())
+                .driverType(service.driverType());
     }
 
     static ServiceDTO toDto(SasService service) {
         return new ServiceDTO()
-                .id(service.getId())
-                .prefix(service.getPrefix())
-                .name(service.getName())
-                .description(service.getDescription())
-                .port(service.getPort())
-                .driverType(service.getDriverType());
+                .id(service.id())
+                .prefix(service.prefix())
+                .name(service.name())
+                .description(service.description())
+                .port(service.port())
+                .driverType(service.driverType());
     }
 }

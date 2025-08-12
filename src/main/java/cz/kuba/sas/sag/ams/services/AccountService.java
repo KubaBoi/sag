@@ -27,8 +27,8 @@ public class AccountService {
     public AccountDTO createAccount(LoginRequestDTO credentials) {
         log.info("Creating account {}", credentials.userName());
         SasAccount account = new SasAccount();
-        account.setUserName(credentials.userName());
-        account.setPasswordHash(passwordEncoder.encode(credentials.password()));
+        account.userName(credentials.userName());
+        account.passwordHash(passwordEncoder.encode(credentials.password()));
         return AccountMapper.toDTO(accountRepository.save(account));
     }
 }

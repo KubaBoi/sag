@@ -17,7 +17,7 @@ import java.util.UUID;
 @Table(name = "services")
 @Getter
 @Setter
-@Accessors(chain = true)
+@Accessors(chain = true, fluent = true)
 @AllArgsConstructor
 @NoArgsConstructor
 public class SasService {
