@@ -24,7 +24,7 @@ public class AccountController {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @GetMapping
+    @PostMapping
     public ResponseEntity<AccountDTO> createAccount(
             @Valid @RequestBody CreateAccountDTO accountDTO
     ) {
