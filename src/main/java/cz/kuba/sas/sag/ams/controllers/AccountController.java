@@ -1,5 +1,6 @@
 package cz.kuba.sas.sag.ams.controllers;
 
+import cz.kuba.sas.sag.core.Constants;
 import cz.kuba.sas.sag.core.data.models.dtos.accounts.AccountDTO;
 import cz.kuba.sas.sag.core.data.models.dtos.accounts.CreateAccountDTO;
 import jakarta.validation.Valid;
@@ -13,7 +14,7 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping("/accounts")
+@RequestMapping(Constants.Paths.Accounts.ACCOUNTS)
 public class AccountController {
 
     @GetMapping
@@ -31,21 +32,21 @@ public class AccountController {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @GetMapping("/{accountId}")
+    @GetMapping(Constants.Paths.Accounts.ACCOUNT_ID)
     public ResponseEntity<AccountDTO> getAccount(
             @PathVariable UUID accountId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @PatchMapping("/{accountId}")
+    @PatchMapping(Constants.Paths.Accounts.ACCOUNT_ID)
     public ResponseEntity<AccountDTO> updateAccount(
             @PathVariable UUID accountId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @DeleteMapping("/{accountId}")
+    @DeleteMapping(Constants.Paths.Accounts.ACCOUNT_ID)
     public ResponseEntity<Void> deleteAccount(
             @PathVariable UUID accountId
     ) {

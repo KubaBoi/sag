@@ -2,6 +2,7 @@ package cz.kuba.sas.sag.ams.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.kuba.sas.sag.ams.services.AuthService;
+import cz.kuba.sas.sag.core.Constants;
 import cz.kuba.sas.sag.core.data.models.dtos.login.LoginRequestDTO;
 import cz.kuba.sas.sag.core.data.models.dtos.login.LoginResponseDTO;
 import jakarta.validation.Valid;
@@ -20,13 +21,13 @@ import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 @RestController
-@RequestMapping("/auth")
+@RequestMapping(Constants.Paths.Auth.AUTH)
 @RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/login")
+    @PostMapping(Constants.Paths.Auth.LOGIN)
     public ResponseEntity<LoginResponseDTO> login(
             @Valid @RequestBody LoginRequestDTO credentials
     ) {

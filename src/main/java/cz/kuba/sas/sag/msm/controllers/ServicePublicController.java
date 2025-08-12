@@ -1,5 +1,6 @@
 package cz.kuba.sas.sag.msm.controllers;
 
+import cz.kuba.sas.sag.core.Constants;
 import cz.kuba.sas.sag.core.data.models.dtos.services.PublicServiceDTO;
 import jakarta.validation.constraints.Min;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,7 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping("/public/services")
+@RequestMapping(Constants.Paths.Services.PUBLIC)
 public class ServicePublicController {
 
     @GetMapping
@@ -22,7 +23,7 @@ public class ServicePublicController {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @GetMapping("/{serviceId}")
+    @GetMapping(Constants.Paths.Services.SERVICE_ID)
     public ResponseEntity<PublicServiceDTO> getPublicService(
             @PathVariable UUID serviceId
     ) {

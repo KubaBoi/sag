@@ -1,5 +1,6 @@
 package cz.kuba.sas.sag.msm.controllers;
 
+import cz.kuba.sas.sag.core.Constants;
 import cz.kuba.sas.sag.core.data.models.dtos.services.ServiceDTO;
 import jakarta.validation.constraints.Min;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,7 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping("/system/services")
+@RequestMapping(Constants.Paths.Services.SYSTEM)
 public class ServicesController {
 
     @GetMapping
@@ -26,21 +27,21 @@ public class ServicesController {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @GetMapping("/{serviceId}")
+    @GetMapping(Constants.Paths.Services.SERVICE_ID)
     public ResponseEntity<ServiceDTO> getService(
             @PathVariable UUID serviceId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @PatchMapping("/{serviceId}")
+    @PatchMapping(Constants.Paths.Services.SERVICE_ID)
     public ResponseEntity<ServiceDTO> updateService(
             @PathVariable UUID serviceId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @DeleteMapping("/{serviceId}")
+    @DeleteMapping(Constants.Paths.Services.SERVICE_ID)
     public ResponseEntity<Void> deleteService(
             @PathVariable UUID serviceId
     ) {

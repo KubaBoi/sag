@@ -1,5 +1,6 @@
 package cz.kuba.sas.sag.ams.controllers;
 
+import cz.kuba.sas.sag.core.Constants;
 import cz.kuba.sas.sag.core.data.models.dtos.accounts.PublicAccountDTO;
 import jakarta.validation.constraints.Min;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,7 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping("/public/accounts")
+@RequestMapping(Constants.Paths.Accounts.PUBLIC)
 public class AccountPublicController {
 
     @GetMapping
@@ -22,7 +23,7 @@ public class AccountPublicController {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @GetMapping("/{accountId}")
+    @GetMapping(Constants.Paths.Accounts.ACCOUNT_ID)
     public ResponseEntity<PublicAccountDTO> getPublicAccount(
             @PathVariable UUID accountId
     ) {
