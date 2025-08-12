@@ -1,4 +1,4 @@
-package cz.kuba.sas.sag.core.data.models.dtos;
+package cz.kuba.sas.sag.core.data.models.dtos.accounts;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -11,13 +11,13 @@ import java.util.UUID;
 
 @Setter
 @Getter
-@Accessors(chain = true)
+@Accessors(chain = true, fluent = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class AccountDTO {
+public class PublicAccountDTO {
 
     @JsonProperty
-    private UUID id;
-    @JsonProperty
     private String userName;
+    @JsonProperty
+    private UUID id;
 }

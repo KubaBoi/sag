@@ -1,13 +1,14 @@
 package cz.kuba.sas.sag.ams.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import cz.kuba.sas.sag.core.data.models.dtos.LoginResponseDTO;
+import cz.kuba.sas.sag.core.data.models.dtos.login.LoginResponseDTO;
 import cz.kuba.sas.sag.core.data.models.entities.SasAccount;
 import cz.kuba.sas.sag.core.data.mappers.AccountMapper;
-import cz.kuba.sas.sag.core.data.models.dtos.AccountDTO;
-import cz.kuba.sas.sag.core.data.models.dtos.LoginRequestDTO;
+import cz.kuba.sas.sag.core.data.models.dtos.accounts.AccountDTO;
+import cz.kuba.sas.sag.core.data.models.dtos.login.LoginRequestDTO;
 import cz.kuba.sas.sag.core.data.repositories.AccountRepository;
 import cz.kuba.sas.sag.core.utils.Jwt;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,44 +21,25 @@ import java.time.temporal.ChronoUnit;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class AuthService {
 
     private final PasswordEncoder passwordEncoder;
     private final AccountRepository accountRepository;
 
-    public AuthService(PasswordEncoder passwordEncoder,
-                       AccountRepository accountRepository) {
-        this.passwordEncoder = passwordEncoder;
-        this.accountRepository = accountRepository;
-    }
-
-    /**
-     * Creates account with authentication via password
-     *
-     * @param credentials User's credentials
-     * @return New account
-     */
-    public AccountDTO createUser(LoginRequestDTO credentials) {
-        log.info("Creating user {}", credentials.getUsername());
-        SasAccount account = new SasAccount();
-        account.setUserName(credentials.getUsername());
-        account.setPasswordHash(passwordEncoder.encode(credentials.getPassword()));
-        return AccountMapper.toDTO(accountRepository.save(account));
-    }
-
     /**
      * Authenticate account via password
      *
-     * @param credentials User's credentials
+     * @param credentials Account's credentials
      * @return Authenticated account
      */
     public LoginResponseDTO login(LoginRequestDTO credentials) throws AccountNotFoundException, NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
-        SasAccount account = accountRepository.findByUserName(credentials.getUsername());
+        SasAccount account = accountRepository.findByUserName(credentials.userName());
         if (account == null) {
             log.error("Account not found");
             throw new AccountNotFoundException("Account not found");
         }
-        if (!passwordEncoder.matches(credentials.getPassword(), account.getPasswordHash())) {
+        if (!passwordEncoder.matches(credentials.password(), account.getPasswordHash())) {
             log.error("Wrong password");
             throw new AccountNotFoundException("Wrong password");
         }
@@ -67,10 +49,10 @@ public class AuthService {
         String jwt = new Jwt()
                 .payload(new Jwt.Payload()
                         .issuer("SAG")
-                        .subject(accountDTO.getId().toString())
+                        .subject(accountDTO.id().toString())
                         .expiration(now.plus(1, ChronoUnit.HOURS))
                         .issued(now))
-                .build("123456789123456789123456798123456789");
+                .build("123456789123456789123456798123456789"); // TODO tohle zmenit
 
         return new LoginResponseDTO(jwt, accountDTO);
     }

@@ -2,14 +2,17 @@ package cz.kuba.sas.sag.ams.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import cz.kuba.sas.sag.ams.services.AuthService;
-import cz.kuba.sas.sag.core.data.models.dtos.AccountDTO;
-import cz.kuba.sas.sag.core.data.models.dtos.LoginRequestDTO;
-import cz.kuba.sas.sag.core.data.models.dtos.LoginResponseDTO;
+import cz.kuba.sas.sag.core.data.models.dtos.login.LoginRequestDTO;
+import cz.kuba.sas.sag.core.data.models.dtos.login.LoginResponseDTO;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.security.auth.login.AccountNotFoundException;
 import java.security.InvalidKeyException;
@@ -18,18 +21,14 @@ import java.security.NoSuchAlgorithmException;
 @Slf4j
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
 
-    @Autowired
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
-
-    @PostMapping
-    @RequestMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginRequestDTO credentials) {
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDTO> login(
+            @Valid @RequestBody LoginRequestDTO credentials) {
         LoginResponseDTO account;
         try {
             account = authService.login(credentials);
@@ -41,12 +40,5 @@ public class AuthController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(account);
-    }
-
-    @PutMapping
-    @RequestMapping("/register")
-    public ResponseEntity<AccountDTO> register(@RequestBody LoginRequestDTO credentials) {
-        AccountDTO account = authService.createUser(credentials);
-        return ResponseEntity.status(HttpStatus.CREATED).body(account);
     }
 }

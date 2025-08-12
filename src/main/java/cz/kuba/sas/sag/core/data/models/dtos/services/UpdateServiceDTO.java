@@ -1,4 +1,4 @@
-package cz.kuba.sas.sag.core.data.models.dtos;
+package cz.kuba.sas.sag.core.data.models.dtos.services;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import cz.kuba.sas.sag.core.data.enums.DriverType;
@@ -8,25 +8,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.util.UUID;
+import java.net.URL;
 
-@Getter
 @Setter
-@Accessors(chain = true)
+@Getter
+@Accessors(chain = true, fluent = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class ServiceDTO {
+public class UpdateServiceDTO {
 
-    @JsonProperty
-    private UUID id;
     @JsonProperty
     private String prefix;
     @JsonProperty
     private String name;
     @JsonProperty
+    private DriverType driverType;
+    @JsonProperty
+    private String version;
+    @JsonProperty
     private String description;
     @JsonProperty
-    private Integer port;
+    private URL icon;
     @JsonProperty
-    private DriverType driverType;
+    private URL source;
 }

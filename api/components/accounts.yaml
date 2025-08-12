@@ -22,7 +22,7 @@ components:
               properties:
                 publicKey:
                   type: string
-                  format: byte
+                  format: base64
           properties:
             email:
               type: string
@@ -31,6 +31,16 @@ components:
     UpdateAccountDTO:
       allOf:
         - $ref: '#/components/schemas/BaseAccountDTO'
+        - type: object
+          properties:
+            email:
+              type: string
+              format: email
+            password:
+              type: string
+            publicKey:
+              type: string
+              format: base64
 
     PublicAccountDTO:
       allOf:

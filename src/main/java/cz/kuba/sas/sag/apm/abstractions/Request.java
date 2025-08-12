@@ -1,4 +1,4 @@
-package cz.kuba.sas.sag.core.data.models;
+package cz.kuba.sas.sag.apm.abstractions;
 
 import cz.kuba.sas.sag.core.data.models.entities.SasService;
 import jakarta.servlet.http.HttpServletRequest;
