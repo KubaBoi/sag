@@ -28,7 +28,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDTO> login(
-            @Valid @RequestBody LoginRequestDTO credentials) {
+            @Valid @RequestBody LoginRequestDTO credentials
+    ) {
         LoginResponseDTO account;
         try {
             account = authService.login(credentials);

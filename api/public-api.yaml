@@ -73,7 +73,7 @@ paths:
 
   # Public
 
-  /accounts/public:
+  /public/accounts:
     get:
       tags:
         - Public
@@ -81,6 +81,19 @@ paths:
       description: Accessible to all authenticated
       security:
         - oauth2jwt: [ admin, user ]
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+          description: Page of listed accounts.
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+            minimum: 1
+          description: Size of listed page.
       responses:
         '200':
           description: List of all accounts with public data
@@ -97,7 +110,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
   
-  /accounts/{accountId}/public:
+  /public/accounts/{accountId}:
     get:
       tags:
         - Public
@@ -132,7 +145,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
 
-  /services/public:
+  /public/services:
     get:
       tags:
         - Public
@@ -140,6 +153,19 @@ paths:
       description: Accessible to all authenticated
       security:
         - oauth2jwt: [ admin, user ]
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+          description: Page of listed services.
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+            minimum: 1
+          description: Size of listed page.
       responses:
         '200':
           description: List of all service with public data
@@ -149,6 +175,41 @@ paths:
                 type: array
                 items:
                   $ref: './components/services.yaml#/components/schemas/PublicServiceDTO'
+
+  /public/services/{serviceId}:
+    get:
+      tags:
+        - Public
+      summary: Detail of service with public data
+      description: Accessible only to all authenticated
+      security:
+        - oauth2jwt: [ admin, user ]
+      parameters:
+        - name: serviceId
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Id of service
+      responses:
+        '200':
+          description: Service found
+          content:
+            application/json:
+              schema:
+                $ref: './components/accounts.yaml#/components/schemas/PublicServiceDTO'
+        '401':
+          description: Not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '404':
+          description: Service not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
 
   # Accounts
 
@@ -160,6 +221,19 @@ paths:
       description: Accessible only to `admin`
       security:
         - oauth2jwt: [ admin ]
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+          description: Page of listed accounts.
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+            minimum: 1
+          description: Size of listed page.
       responses:
         '200':
           description: List of all accounts
@@ -324,6 +398,19 @@ paths:
       description: Accessible only to `admin`
       security:
         - oauth2jwt: [ admin ]
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            minimum: 0
+          description: Page of listed services.
+        - in: query
+          name: pageSize
+          schema:
+            type: integer
+            minimum: 1
+          description: Size of listed page.
       responses:
         '200':
           description: List of all services
