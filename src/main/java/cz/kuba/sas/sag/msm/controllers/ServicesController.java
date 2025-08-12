@@ -27,23 +27,23 @@ public class ServicesController {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @GetMapping(Constants.Paths.Services.SERVICE_ID)
+    @GetMapping(Constants.Paths.Services.SERVICE_ID_PARAM)
     public ResponseEntity<ServiceDTO> getService(
-            @PathVariable UUID serviceId
+            @PathVariable(name = Constants.Paths.Services.SERVICE_ID) UUID serviceId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @PatchMapping(Constants.Paths.Services.SERVICE_ID)
+    @PatchMapping(Constants.Paths.Services.SERVICE_ID_PARAM)
     public ResponseEntity<ServiceDTO> updateService(
-            @PathVariable UUID serviceId
+            @PathVariable(name = Constants.Paths.Services.SERVICE_ID) UUID serviceId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @DeleteMapping(Constants.Paths.Services.SERVICE_ID)
+    @DeleteMapping(Constants.Paths.Services.SERVICE_ID_PARAM)
     public ResponseEntity<Void> deleteService(
-            @PathVariable UUID serviceId
+            @PathVariable(name = Constants.Paths.Services.SERVICE_ID) UUID serviceId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

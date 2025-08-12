@@ -13,14 +13,18 @@ public class Constants {
         public static class Accounts {
             public static final String ACCOUNTS = "/accounts";
             public static final String PUBLIC = Paths.PUBLIC + ACCOUNTS;
-            public static final String ACCOUNT_ID = "/{accountId}";
+
+            public static final String ACCOUNT_ID = "accountId";
+            public static final String ACCOUNT_ID_PARAM = "/{" + ACCOUNT_ID + "}";
         }
 
         public static class Services {
             public static final String SERVICES = "/services";
             public static final String PUBLIC = Paths.PUBLIC + SERVICES;
             public static final String SYSTEM = "/system" + SERVICES;
-            public static final String SERVICE_ID = "/{serviceId}";
+
+            public static final String SERVICE_ID = "serviceId";
+            public static final String SERVICE_ID_PARAM = "/{" + SERVICE_ID + "}";
         }
     }
 }

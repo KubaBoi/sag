@@ -23,9 +23,9 @@ public class AccountPublicController {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @GetMapping(Constants.Paths.Accounts.ACCOUNT_ID)
+    @GetMapping(Constants.Paths.Accounts.ACCOUNT_ID_PARAM)
     public ResponseEntity<PublicAccountDTO> getPublicAccount(
-            @PathVariable UUID accountId
+            @PathVariable(name = Constants.Paths.Accounts.ACCOUNT_ID) UUID accountId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

@@ -32,23 +32,23 @@ public class AccountController {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @GetMapping(Constants.Paths.Accounts.ACCOUNT_ID)
+    @GetMapping(Constants.Paths.Accounts.ACCOUNT_ID_PARAM)
     public ResponseEntity<AccountDTO> getAccount(
-            @PathVariable UUID accountId
+            @PathVariable(name = Constants.Paths.Accounts.ACCOUNT_ID) UUID accountId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @PatchMapping(Constants.Paths.Accounts.ACCOUNT_ID)
+    @PatchMapping(Constants.Paths.Accounts.ACCOUNT_ID_PARAM)
     public ResponseEntity<AccountDTO> updateAccount(
-            @PathVariable UUID accountId
+            @PathVariable(name = Constants.Paths.Accounts.ACCOUNT_ID) UUID accountId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @DeleteMapping(Constants.Paths.Accounts.ACCOUNT_ID)
+    @DeleteMapping(Constants.Paths.Accounts.ACCOUNT_ID_PARAM)
     public ResponseEntity<Void> deleteAccount(
-            @PathVariable UUID accountId
+            @PathVariable(name = Constants.Paths.Accounts.ACCOUNT_ID) UUID accountId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

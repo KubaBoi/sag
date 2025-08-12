@@ -23,9 +23,9 @@ public class ServicePublicController {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @GetMapping(Constants.Paths.Services.SERVICE_ID)
+    @GetMapping(Constants.Paths.Services.SERVICE_ID_PARAM)
     public ResponseEntity<PublicServiceDTO> getPublicService(
-            @PathVariable UUID serviceId
+            @PathVariable(name = Constants.Paths.Services.SERVICE_ID) UUID serviceId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
