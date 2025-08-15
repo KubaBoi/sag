@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+ Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="1.2.0" use-changelog="false" max-obj-count="4"
+	 gen-disabled-objs-code="false" show-sys-schemas-rects="true"
+	 last-position="33,0" last-zoom="1"
+	 default-schema="public" default-owner="postgres"
+	 layers="Default layer"
+	 active-layers="0"
+	 layer-name-colors="#000000"
+	 layer-rect-colors="#b4b4b4"
+	 show-layer-names="false" show-layer-rects="false">
+<role name="sag"
+ login="true">
+</role>
+
+<database name="sag" is-template="false" allow-conns="true">
+	<role name="sag"/>
+</database>
+
+<schema name="public" layers="0" fill-color="#e1e1e1" name-color="#000000" sql-disabled="true">
+</schema>
+
+<usertype name="driver_type" configuration="enumeration">
+	<schema name="public"/>
+	<role name="sag"/>
+	<enumeration label="http"/>
+</usertype>
+
+<usertype name="role_type" configuration="enumeration">
+	<schema name="public"/>
+	<role name="sag"/>
+	<enumeration label="admin"/>
+	<enumeration label="user"/>
+</usertype>
+
+<table name="service" layers="0" collapse-mode="2" max-obj-count="12" z-value="0">
+	<schema name="public"/>
+	<role name="sag"/>
+	<position x="880" y="220"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="prefix" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="version" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="source" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="driver_type" not-null="true">
+		<type name="public.driver_type" length="0"/>
+	</column>
+	<column name="port" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="description">
+		<type name="text" length="0"/>
+	</column>
+	<column name="icon">
+		<type name="text" length="0"/>
+	</column>
+	<column name="account_id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="service_pk" type="pk-constr" table="public.service">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="account" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="sag"/>
+	<position x="380" y="220"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="user_name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="email" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="role" not-null="true">
+		<type name="public.role_type" length="0"/>
+	</column>
+	<constraint name="account_pk" type="pk-constr" table="public.account">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="account_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.account" table="public.service">
+	<columns names="account_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="account_has_many_service" type="relfk" layers="0"
+	 src-table="public.service"
+	 dst-table="public.account" reference-fk="account_fk"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+</dbmodel>
