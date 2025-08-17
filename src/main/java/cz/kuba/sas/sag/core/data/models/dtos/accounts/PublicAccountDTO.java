@@ -17,7 +17,7 @@ import java.util.UUID;
 public class PublicAccountDTO {
 
     @JsonProperty
-    private String userName;
-    @JsonProperty
     private UUID id;
+    @JsonProperty
+    private String userName;
 }

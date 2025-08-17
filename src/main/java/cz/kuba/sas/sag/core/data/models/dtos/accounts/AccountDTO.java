@@ -22,7 +22,7 @@ public class AccountDTO {
     @JsonProperty
     private String userName;
     @JsonProperty
-    private String password;
+    private String email;
     @JsonProperty
     private Role role;
 }

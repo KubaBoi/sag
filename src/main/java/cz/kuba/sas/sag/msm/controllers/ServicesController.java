@@ -1,6 +1,6 @@
 package cz.kuba.sas.sag.msm.controllers;
 
-import cz.kuba.sas.sag.core.Constants;
+import cz.kuba.sas.sag.core.Routes;
 import cz.kuba.sas.sag.core.data.models.dtos.services.ServiceDTO;
 import jakarta.validation.constraints.Min;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping(Constants.Paths.Services.SYSTEM)
+@RequestMapping(Routes.Services.SYSTEM)
 public class ServicesController {
 
     @GetMapping
@@ -27,23 +27,23 @@ public class ServicesController {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @GetMapping(Constants.Paths.Services.SERVICE_ID_PARAM)
+    @GetMapping(Routes.Services.SERVICE_ID_PARAM)
     public ResponseEntity<ServiceDTO> getService(
-            @PathVariable(name = Constants.Paths.Services.SERVICE_ID) UUID serviceId
+            @PathVariable(name = Routes.Services.SERVICE_ID) UUID serviceId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @PatchMapping(Constants.Paths.Services.SERVICE_ID_PARAM)
+    @PatchMapping(Routes.Services.SERVICE_ID_PARAM)
     public ResponseEntity<ServiceDTO> updateService(
-            @PathVariable(name = Constants.Paths.Services.SERVICE_ID) UUID serviceId
+            @PathVariable(name = Routes.Services.SERVICE_ID) UUID serviceId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @DeleteMapping(Constants.Paths.Services.SERVICE_ID_PARAM)
+    @DeleteMapping(Routes.Services.SERVICE_ID_PARAM)
     public ResponseEntity<Void> deleteService(
-            @PathVariable(name = Constants.Paths.Services.SERVICE_ID) UUID serviceId
+            @PathVariable(name = Routes.Services.SERVICE_ID) UUID serviceId
     ) {
         throw new UnsupportedOperationException("Not supported yet.");
     }

@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="1.2.0" use-changelog="false" max-obj-count="4"
 	 gen-disabled-objs-code="false" show-sys-schemas-rects="true"
-	 last-position="33,0" last-zoom="1"
+	 last-position="0,0" last-zoom="1"
 	 default-schema="public" default-owner="postgres"
 	 layers="Default layer"
 	 active-layers="0"
@@ -52,14 +52,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="version" not-null="true">
 		<type name="text" length="0"/>
 	</column>
-	<column name="source" not-null="true">
-		<type name="text" length="0"/>
-	</column>
 	<column name="driver_type" not-null="true">
 		<type name="public.driver_type" length="0"/>
 	</column>
 	<column name="port" not-null="true">
 		<type name="integer" length="0"/>
+	</column>
+	<column name="source">
+		<type name="text" length="0"/>
 	</column>
 	<column name="description">
 		<type name="text" length="0"/>
@@ -73,12 +73,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="service_pk" type="pk-constr" table="public.service">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
+	<constraint name="unique_prefix" type="uq-constr" table="public.service">
+		<columns names="prefix" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="unique_port" type="uq-constr" table="public.service">
+		<columns names="port" ref-type="src-columns"/>
+	</constraint>
 </table>
 
-<table name="account" layers="0" collapse-mode="2" max-obj-count="4" z-value="0">
+<table name="account" layers="0" collapse-mode="2" max-obj-count="7" z-value="0">
 	<schema name="public"/>
 	<role name="sag"/>
-	<position x="380" y="220"/>
+	<position x="320" y="220"/>
 	<column name="id" not-null="true">
 		<type name="uuid" length="0"/>
 	</column>
@@ -91,8 +97,27 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="role" not-null="true">
 		<type name="public.role_type" length="0"/>
 	</column>
+	<column name="password_hash">
+		<type name="text" length="0"/>
+	</column>
+	<column name="public_key">
+		<type name="bytea" length="0"/>
+	</column>
 	<constraint name="account_pk" type="pk-constr" table="public.account">
 		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="only_password_or_public_key" type="ck-constr" table="public.account">
+			<expression> <![CDATA[(
+	(accounts.password_hash IS NOT  NULL AND accounts.public_key IS NULL)
+	OR
+	(accounts.password_hash IS NULL AND accounts.public_key IS NOT NULL)
+)]]> </expression>
+	</constraint>
+	<constraint name="unique_user_name" type="uq-constr" table="public.account">
+		<columns names="user_name" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="unique_email" type="uq-constr" table="public.account">
+		<columns names="email" ref-type="src-columns"/>
 	</constraint>
 </table>
 

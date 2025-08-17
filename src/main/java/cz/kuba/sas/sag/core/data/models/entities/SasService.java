@@ -39,10 +39,17 @@ public class SasService {
     private String name;
 
     /**
-     * Short description
+     * Version of deployed service
      */
-    @Column
-    private String description;
+    @Column(nullable = false)
+    private String version;
+
+    /**
+     * Type of service's interface
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private DriverType driverType;
 
     /**
      * Internal port
@@ -51,9 +58,20 @@ public class SasService {
     private Integer port;
 
     /**
-     * Type of service's interface
+     * Short description
      */
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private DriverType driverType;
+    @Column
+    private String description;
+
+    /**
+     * Url of source code
+     */
+    @Column
+    private String source;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "accountId")
+    private SasAccount account;
+
+
 }

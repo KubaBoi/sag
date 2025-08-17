@@ -46,13 +46,15 @@ CREATE TABLE public.service (
 	prefix text NOT NULL,
 	name text NOT NULL,
 	version text NOT NULL,
-	source text NOT NULL,
 	driver_type public.driver_type NOT NULL,
 	port integer NOT NULL,
+	source text,
 	description text,
 	icon text,
 	account_id uuid NOT NULL,
-	CONSTRAINT service_pk PRIMARY KEY (id)
+	CONSTRAINT service_pk PRIMARY KEY (id),
+	CONSTRAINT unique_prefix UNIQUE (prefix),
+	CONSTRAINT unique_port UNIQUE (port)
 );
 -- ddl-end --
 ALTER TABLE public.service OWNER TO sag;
@@ -65,7 +67,16 @@ CREATE TABLE public.account (
 	user_name text NOT NULL,
 	email text NOT NULL,
 	role public.role_type NOT NULL,
-	CONSTRAINT account_pk PRIMARY KEY (id)
+	password_hash text,
+	public_key bytea,
+	CONSTRAINT account_pk PRIMARY KEY (id),
+	CONSTRAINT only_password_or_public_key CHECK ((
+	(accounts.password_hash IS NOT  NULL AND accounts.public_key IS NULL)
+	OR
+	(accounts.password_hash IS NULL AND accounts.public_key IS NOT NULL)
+)),
+	CONSTRAINT unique_user_name UNIQUE (user_name),
+	CONSTRAINT unique_email UNIQUE (email)
 );
 -- ddl-end --
 ALTER TABLE public.account OWNER TO sag;
