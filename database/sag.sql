@@ -70,11 +70,6 @@ CREATE TABLE public.account (
 	password_hash text,
 	public_key bytea,
 	CONSTRAINT account_pk PRIMARY KEY (id),
-	CONSTRAINT only_password_or_public_key CHECK ((
-	(accounts.password_hash IS NOT  NULL AND accounts.public_key IS NULL)
-	OR
-	(accounts.password_hash IS NULL AND accounts.public_key IS NOT NULL)
-)),
 	CONSTRAINT unique_user_name UNIQUE (user_name),
 	CONSTRAINT unique_email UNIQUE (email)
 );

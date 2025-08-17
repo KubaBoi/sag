@@ -106,13 +106,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="account_pk" type="pk-constr" table="public.account">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
-	<constraint name="only_password_or_public_key" type="ck-constr" table="public.account">
-			<expression> <![CDATA[(
-	(accounts.password_hash IS NOT  NULL AND accounts.public_key IS NULL)
-	OR
-	(accounts.password_hash IS NULL AND accounts.public_key IS NOT NULL)
-)]]> </expression>
-	</constraint>
 	<constraint name="unique_user_name" type="uq-constr" table="public.account">
 		<columns names="user_name" ref-type="src-columns"/>
 	</constraint>
