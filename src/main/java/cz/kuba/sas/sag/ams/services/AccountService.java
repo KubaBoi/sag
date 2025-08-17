@@ -34,7 +34,7 @@ public class AccountService {
      * @param pageSize If null, then no limit
      * @return Selected accounts
      */
-    public List<AccountDTO> getAccounts(Integer page, Integer pageSize) {
+    public List<AccountDTO> findAccounts(Integer page, Integer pageSize) {
         // TODO add sortBy
         List<SasAccount> accounts;
         if (pageSize == null) {

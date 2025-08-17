@@ -30,7 +30,7 @@ public class AccountController {
             @RequestParam @Min(1) @Nullable Integer pageSize
     ) {
         log.info("getAccounts page={}, pageSize={}", page, pageSize);
-        var accounts = accountService.getAccounts(page, pageSize);
+        var accounts = accountService.findAccounts(page, pageSize);
         log.info("getAccounts found {} accounts", accounts.size());
         return ResponseEntity.ok(accounts);
     }
