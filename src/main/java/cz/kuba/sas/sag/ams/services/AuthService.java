@@ -1,11 +1,11 @@
 package cz.kuba.sas.sag.ams.services;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import cz.kuba.sas.sag.core.data.models.dtos.login.LoginResponseDTO;
-import cz.kuba.sas.sag.core.data.models.entities.SasAccount;
 import cz.kuba.sas.sag.core.data.mappers.AccountMapper;
 import cz.kuba.sas.sag.core.data.models.dtos.accounts.AccountDTO;
 import cz.kuba.sas.sag.core.data.models.dtos.login.LoginRequestDTO;
+import cz.kuba.sas.sag.core.data.models.dtos.login.LoginResponseDTO;
+import cz.kuba.sas.sag.core.data.models.entities.SasAccount;
 import cz.kuba.sas.sag.core.data.repositories.AccountRepository;
 import cz.kuba.sas.sag.core.utils.Jwt;
 import lombok.RequiredArgsConstructor;
@@ -48,10 +48,10 @@ public class AuthService {
         Instant now = Instant.now();
         String jwt = new Jwt()
                 .payload(new Jwt.Payload()
-                        .issuer("SAG")
-                        .subject(accountDTO.id().toString())
-                        .expiration(now.plus(1, ChronoUnit.HOURS))
-                        .issued(now))
+                                 .issuer("SAG")
+                                 .subject(accountDTO.id().toString())
+                                 .expiration(now.plus(1, ChronoUnit.HOURS))
+                                 .issued(now))
                 .build("123456789123456789123456798123456789"); // TODO tohle zmenit
 
         return new LoginResponseDTO(jwt, accountDTO);

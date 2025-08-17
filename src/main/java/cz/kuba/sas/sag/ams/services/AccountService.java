@@ -31,7 +31,7 @@ public class AccountService {
     /**
      * Get all accounts by pages.
      *
-     * @param page Selected page
+     * @param page     Selected page
      * @param pageSize If null, then no limit
      * @return Selected accounts
      */
@@ -56,7 +56,7 @@ public class AccountService {
      * @param accountDTO Accounts info and credentials
      * @return New account
      */
-    public AccountDTO createAccount(CreateAccountDTO accountDTO)  {
+    public AccountDTO createAccount(CreateAccountDTO accountDTO) {
         log.info("Creating account {}", accountDTO.userName());
         SasAccount account = new SasAccount();
         account.userName(account.userName());
@@ -94,7 +94,7 @@ public class AccountService {
     /**
      * Update account's data.
      *
-     * @param accountId id
+     * @param accountId  id
      * @param accountDTO modified data
      * @return updated account
      */
