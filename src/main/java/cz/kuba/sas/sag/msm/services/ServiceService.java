@@ -4,13 +4,16 @@ import cz.kuba.sas.sag.core.data.mappers.ServiceMapper;
 import cz.kuba.sas.sag.core.data.models.dtos.services.ServiceDTO;
 import cz.kuba.sas.sag.core.data.models.entities.SasService;
 import cz.kuba.sas.sag.core.data.repositories.ServiceRepository;
+import cz.kuba.sas.sag.core.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.management.ServiceNotFoundException;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -40,5 +43,34 @@ public class ServiceService {
         return services.stream()
                 .map(ServiceMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    public ServiceDTO createService() {
+        throw new UnsupportedOperationException();
+    }
+
+    public ServiceDTO findService(UUID serviceId) {
+        log.info("Finding service {}", serviceId);
+        var service = findServiceOrThrow(serviceId);
+        return ServiceMapper.toDTO(service);
+    }
+
+    public ServiceDTO updateService(UUID serviceId, ServiceDTO serviceDTO) {
+        log.info("Updating service {}", serviceId);
+        return null;
+    }
+
+    public void deleteService(UUID serviceId) {
+        log.info("Deleting service {}", serviceId);
+        findServiceOrThrow(serviceId);
+        serviceRepository.deleteById(serviceId);
+    }
+
+    private SasService findServiceOrThrow(UUID serviceId) {
+        return serviceRepository.findById(serviceId)
+                .orElseThrow(() -> {
+                    log.error("Service with id {} not found", serviceId);
+                    return new NotFoundException("Account not found");
+                });
     }
 }

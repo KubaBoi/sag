@@ -133,7 +133,7 @@ public class AccountService {
         return accountRepository.findById(accountId)
                 .orElseThrow(() -> {
                     log.error("Account with id {} not found", accountId);
-                    return new NotFoundException("Account with id not found");
+                    return new NotFoundException("Account not found");
                 });
     }
 }

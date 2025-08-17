@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class ServicesController {
     @GetMapping
     public ResponseEntity<List<ServiceDTO>> getServices(
             @RequestParam(defaultValue = "0") @Min(0) Integer page,
-            @RequestParam @Min(1) Integer pageSize
+            @RequestParam @Min(1) @Nullable Integer pageSize
     ) {
         log.info("getServices page={}, pageSize={}", page, pageSize);
         var services = serviceService.findServices(page, pageSize);
@@ -40,7 +41,8 @@ public class ServicesController {
     public ResponseEntity<ServiceDTO> getService(
             @PathVariable(name = Routes.Services.SERVICE_ID) UUID serviceId
     ) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        log.info("getService serviceId={}", serviceId);
+        return ResponseEntity.ok(serviceService.findService(serviceId));
     }
 
     @PatchMapping(Routes.Services.SERVICE_ID_PARAM)
@@ -54,6 +56,8 @@ public class ServicesController {
     public ResponseEntity<Void> deleteService(
             @PathVariable(name = Routes.Services.SERVICE_ID) UUID serviceId
     ) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        log.info("deleteService serviceId={}", serviceId);
+        serviceService.deleteService(serviceId);
+        return ResponseEntity.noContent().build();
     }
 }
