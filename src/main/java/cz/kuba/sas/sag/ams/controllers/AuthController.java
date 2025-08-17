@@ -41,6 +41,6 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(account);
+        return ResponseEntity.ok(account);
     }
 }
