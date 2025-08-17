@@ -2,24 +2,33 @@ package cz.kuba.sas.sag.msm.controllers;
 
 import cz.kuba.sas.sag.core.Routes;
 import cz.kuba.sas.sag.core.data.models.dtos.services.ServiceDTO;
+import cz.kuba.sas.sag.msm.services.ServiceService;
 import jakarta.validation.constraints.Min;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
+@RequiredArgsConstructor
 @RestController
 @RequestMapping(Routes.Services.SYSTEM)
 public class ServicesController {
 
+    private final ServiceService serviceService;
+
     @GetMapping
-    public ResponseEntity<ServiceDTO> getServices(
+    public ResponseEntity<List<ServiceDTO>> getServices(
             @RequestParam(defaultValue = "0") @Min(0) Integer page,
             @RequestParam @Min(1) Integer pageSize
     ) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        log.info("getServices page={}, pageSize={}", page, pageSize);
+        var services = serviceService.findServices(page, pageSize);
+        log.info("getServices found {} services", services.size());
+        return ResponseEntity.ok(services);
     }
 
     @PostMapping

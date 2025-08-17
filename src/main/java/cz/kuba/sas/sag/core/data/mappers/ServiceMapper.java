@@ -5,7 +5,7 @@ import cz.kuba.sas.sag.core.data.models.dtos.services.ServiceDTO;
 
 public class ServiceMapper {
 
-    static SasService toEntity(ServiceDTO service) {
+    public static SasService toEntity(ServiceDTO service) {
         return new SasService()
                 .id(service.id())
                 .prefix(service.prefix())
@@ -15,7 +15,7 @@ public class ServiceMapper {
                 .driverType(service.driverType());
     }
 
-    static ServiceDTO toDto(SasService service) {
+    public static ServiceDTO toDTO(SasService service) {
         return new ServiceDTO()
                 .id(service.id())
                 .prefix(service.prefix())
