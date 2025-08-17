@@ -197,7 +197,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './components/accounts.yaml#/components/schemas/PublicServiceDTO'
+                $ref: './components/services.yaml#/components/schemas/PublicServiceDTO'
         '401':
           description: Not authenticated
           content:

@@ -4,6 +4,7 @@ import cz.kuba.sas.sag.ams.services.AccountService;
 import cz.kuba.sas.sag.core.Routes;
 import cz.kuba.sas.sag.core.data.models.dtos.accounts.AccountDTO;
 import cz.kuba.sas.sag.core.data.models.dtos.accounts.CreateAccountDTO;
+import cz.kuba.sas.sag.core.data.models.dtos.accounts.UpdateAccountDTO;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -56,10 +57,14 @@ public class AccountController {
 
     @PatchMapping(Routes.Accounts.ACCOUNT_ID_PARAM)
     public ResponseEntity<AccountDTO> updateAccount(
-            @PathVariable(name = Routes.Accounts.ACCOUNT_ID) UUID accountId
+            @PathVariable(name = Routes.Accounts.ACCOUNT_ID) UUID accountId,
+            @Valid @RequestBody UpdateAccountDTO accountDTO
     ) {
-        //TODO dodelat
-        throw new UnsupportedOperationException("Not supported yet.");
+        log.info("updateAccount accountId={}", accountId);
+        return ResponseEntity.ok(accountService.updateAccount(
+                accountId,
+                accountDTO
+        ));
     }
 
     @DeleteMapping(Routes.Accounts.ACCOUNT_ID_PARAM)

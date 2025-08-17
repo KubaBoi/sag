@@ -3,6 +3,7 @@ package cz.kuba.sas.sag.ams.services;
 import cz.kuba.sas.sag.core.data.mappers.AccountMapper;
 import cz.kuba.sas.sag.core.data.models.dtos.accounts.AccountDTO;
 import cz.kuba.sas.sag.core.data.models.dtos.accounts.CreateAccountDTO;
+import cz.kuba.sas.sag.core.data.models.dtos.accounts.UpdateAccountDTO;
 import cz.kuba.sas.sag.core.data.models.entities.SasAccount;
 import cz.kuba.sas.sag.core.data.repositories.AccountRepository;
 import cz.kuba.sas.sag.core.exceptions.BadRequestException;
@@ -61,18 +62,20 @@ public class AccountService {
         account.userName(account.userName());
         account.email(accountDTO.email());
 
-        if (accountDTO.password() != null) {
+        if (accountDTO.password().isEmpty() && accountDTO.publicKey().isBlank()) {
+            log.error("Password nor public key provided");
+            throw new BadRequestException("Password or public key provided");
+        }
+
+        if (!accountDTO.password().isEmpty()) {
             log.info("Creating account with password");
             account.passwordHash(passwordEncoder.encode(accountDTO.password()));
         }
-        else if (accountDTO.publicKey() != null) {
+        if (!accountDTO.publicKey().isEmpty()) {
             log.info("Creating account with public key");
             account.publicKey(Base64.getDecoder().decode(accountDTO.publicKey()));
         }
-        else {
-            log.error("Password nor public key provided");
-            throw new BadRequestException("Password nor public key provided");
-        }
+
         return AccountMapper.toDTO(accountRepository.save(account));
     }
 
@@ -84,13 +87,35 @@ public class AccountService {
      */
     public AccountDTO findAccount(UUID accountId) {
         log.info("Finding account {}", accountId);
-        var account = accountRepository.findById(accountId)
-                .orElseThrow(() -> {
-                    log.error("Account with id {} not found", accountId);
-                    return new NotFoundException("Account with id not found");
-                });
-
+        var account = findAccountOrThrow(accountId);
         return AccountMapper.toDTO(account);
+    }
+
+    /**
+     * Update account's data.
+     *
+     * @param accountId id
+     * @param accountDTO modified data
+     * @return updated account
+     */
+    public AccountDTO updateAccount(UUID accountId, UpdateAccountDTO accountDTO) {
+        log.info("Updating account {}", accountId);
+        var account = findAccountOrThrow(accountId);
+
+        account
+                .userName(accountDTO.userName())
+                .email(accountDTO.email());
+
+        if (!accountDTO.password().isEmpty()) {
+            log.info("Updating account with password");
+            account.passwordHash(passwordEncoder.encode(accountDTO.password()));
+        }
+        if (!accountDTO.publicKey().isEmpty()) {
+            log.info("Updating account with public key");
+            account.publicKey(Base64.getDecoder().decode(accountDTO.publicKey()));
+        }
+
+        return AccountMapper.toDTO(accountRepository.save(account));
     }
 
     /**
@@ -100,12 +125,15 @@ public class AccountService {
      */
     public void deleteAccount(UUID accountId) {
         log.info("Deleting account {}", accountId);
-        accountRepository.findById(accountId)
+        findAccountOrThrow(accountId);
+        accountRepository.deleteById(accountId);
+    }
+
+    private SasAccount findAccountOrThrow(UUID accountId) {
+        return accountRepository.findById(accountId)
                 .orElseThrow(() -> {
                     log.error("Account with id {} not found", accountId);
                     return new NotFoundException("Account with id not found");
                 });
-
-        accountRepository.deleteById(accountId);
     }
 }
